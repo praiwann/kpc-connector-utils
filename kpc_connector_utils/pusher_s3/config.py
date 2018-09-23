@@ -79,7 +79,10 @@ class PutS3Config(BaseConfig):
             return
 
         checks = value.split('%')
-        pattern = '^%[a,A,b,B,c,d,H,I,j,m,M,p,S,U,w,W,x,X,y,Y,Z].*$'
+        if len(checks) == 1:
+            raise ValueError('Time directive should be include at least 1')
+
+        pattern = '^[a,A,b,B,c,d,H,I,j,m,M,p,S,U,w,W,x,X,y,Y,Z].*$'
         p = re.compile(pattern)
 
         for x in checks:

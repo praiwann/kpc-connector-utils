@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 setup(
     name='kpc_connector_utils',
     packages=find_packages(),
-    version='0.1.5',
+    version='0.1.6',
     description='Connector utils and configs',
     author='Praiwan N.',
     author_email='npraiwan@outlook.com',
