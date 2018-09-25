@@ -21,59 +21,49 @@ class PutS3Config(BaseConfig):
     def __str__(self):
         value = {
             'StreamingS3Event': {
-                'data_type': self.data_type,
-                's3_prefix_key': self.s3_prefix_key,
-                's3_file_name': self.s3_file_name,
-                's3_bucket': self.s3_bucket,
-                's3_time_prefix_key': self.s3_time_prefix_key,
-                'compress_data': self.data,
-                'is_time_flag': True if self.is_time_flag else False
+                'data_type': self._data_type,
+                's3_prefix_key': self._s3_prefix_key,
+                's3_file_name': self._s3_file_name,
+                's3_bucket': self._s3_bucket,
+                's3_time_prefix_key': self._s3_time_prefix_key,
+                'compress_data': self._compress_data,
+                'is_time_flag': True if self._is_time_flag else False
             }
         }
 
         return json.dumps(value)
 
-    @property
-    def data_type(self):
+    def get_data_type(self):
         return self._data_type
 
-    @data_type.setter
-    def data_type(self, value):
+    def set_data_type(self, value):
         if not value.upper() == DataType.CSV and not value.upper() == DataType.JSON:
             raise ValueError('This data type is not support.')
 
         self._data_type = value
 
-    @property
-    def s3_prefix_key(self):
+    def get_s3_prefix_key(self):
         return self._s3_prefix_key
 
-    @s3_prefix_key.setter
-    def s3_prefix_key(self, value):
+    def set_s3_prefix_key(self, value):
         self._s3_prefix_key = value
 
-    @property
-    def s3_file_name(self):
+    def get_s3_file_name(self):
         return self._s3_file_name
 
-    @s3_file_name.setter
-    def s3_file_name(self, value):
+    def set_s3_file_name(self, value):
         self._s3_file_name = value
 
-    @property
-    def s3_bucket(self):
+    def get_s3_bucket(self):
         return self._s3_bucket
 
-    @s3_bucket.setter
-    def s3_bucket(self, value):
+    def set_s3_bucket(self, value):
         self._s3_bucket = value
 
-    @property
-    def s3_time_prefix_key(self):
+    def get_s3_time_prefix_key(self):
         return self._s3_time_prefix_key
 
-    @s3_time_prefix_key.setter
-    def s3_time_prefix_key(self, value):
+    def set_s3_time_prefix_key(self, value):
         if not value:
             return
 
@@ -91,21 +81,36 @@ class PutS3Config(BaseConfig):
 
         self._s3_time_prefix_key = value
 
-    @property
-    def data(self):
+    def get_data(self):
         return self._compress_data
 
-    @data.setter
-    def data(self, value):
+    def set_data(self, value):
         self._compress_data = compress(value)
 
-    @property
-    def is_time_flag(self):
+    def get_is_time_flag(self):
         return self._is_time_flag
 
-    @is_time_flag.setter
-    def is_time_flag(self, value):
+    def set_is_time_flag(self, value):
         self._is_time_flag = value
+
+    def set_by_dict(self, config: dict):
+        if config.get('data_type'):
+            self.set_data_type(config.get('data_type'))
+
+        if config.get('s3_prefix_key'):
+            self.set_s3_prefix_key(config.get('s3_prefix_key'))
+
+        if config.get('s3_file_name'):
+            self.set_s3_file_name(config.get('s3_file_name'))
+
+        if config.get('s3_bucket'):
+            self.set_s3_bucket(config.get('s3_bucket'))
+
+        if config.get('s3_time_prefix_key'):
+            self.set_s3_time_prefix_key(config.get('s3_time_prefix_key'))
+
+        if config.get('is_time_flag'):
+            self.set_is_time_flag(config.get('is_time_flag'))
 
 
 class DataType:
