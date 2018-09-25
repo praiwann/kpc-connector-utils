@@ -1,10 +1,9 @@
 from __future__ import print_function
 from kpc_connector_utils.common.base_config import BaseConfig
+from kpc_connector_utils.common.zip import compress
 
 import re
-import zlib
 import json
-import base64
 
 
 class PutS3Config(BaseConfig):
@@ -98,7 +97,7 @@ class PutS3Config(BaseConfig):
 
     @data.setter
     def data(self, value):
-        self._compress_data = base64.b64encode(zlib.compress(value.encode('utf-8'))).decode()
+        self._compress_data = compress(value)
 
     @property
     def is_time_flag(self):
