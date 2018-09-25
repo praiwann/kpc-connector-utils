@@ -1,5 +1,5 @@
 from __future__ import print_function
-from kpc_connector_utils.base.base_config import BaseConfig
+from kpc_connector_utils.common.base_config import BaseConfig
 
 import re
 import zlib

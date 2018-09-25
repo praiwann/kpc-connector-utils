@@ -1,5 +1,5 @@
-from kpc_connector_utils.base.pusher import Pusher
-from kpc_connector_utils.base.types import EventType
+from kpc_connector_utils.common.pusher import Pusher
+from kpc_connector_utils.common.types import EventType
 
 import os
 
