@@ -75,10 +75,18 @@ class ContextWrapper:
 
         return custom_ct.get('request_context')
 
-    @staticmethod
-    def encode_req(enc_str):
-        return base64.b64encode(json.dumps(enc_str).encode()).decode('utf-8')
 
-    @staticmethod
-    def register(context):
-        ContextWrapper().set_context(context)
+def encode_req(enc_str):
+    return base64.b64encode(json.dumps(enc_str).encode()).decode('utf-8')
+
+
+def register_context(context):
+    ContextWrapper().set_context(context)
+
+
+def get_context_wrapper():
+    wrapper = ContextWrapper()
+    if not wrapper.get_context():
+        raise ValueError('Context does not register on initial function state')
+
+    return wrapper
