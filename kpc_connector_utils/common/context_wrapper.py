@@ -78,3 +78,7 @@ class ContextWrapper:
     @staticmethod
     def encode_req(enc_str):
         return base64.b64encode(json.dumps(enc_str).encode()).decode('utf-8')
+
+    @staticmethod
+    def register(context):
+        ContextWrapper().set_context(context)
