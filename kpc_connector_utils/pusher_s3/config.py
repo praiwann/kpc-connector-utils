@@ -39,7 +39,7 @@ class PutS3Config(BaseConfig):
 
     @data_type.setter
     def data_type(self, value):
-        if not value == DataType.CSV or not value == DataType.JSON:
+        if not value.upper() == DataType.CSV and not value.upper() == DataType.JSON:
             raise ValueError('This data type is not support.')
 
         self._data_type = value
