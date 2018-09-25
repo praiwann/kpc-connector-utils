@@ -34,7 +34,7 @@ class ContextWrapper:
         if custom and prior_ct:
             self._logger.info('prior_request_context: {}'.format(json.dumps(prior_ct)))
 
-        return ContextWrapper.encode_req(custom_client_ct)
+        return encode_req(custom_client_ct)
 
     def _get_custom_client_context(self):
         custom_client_ct = {'custom': {}}
