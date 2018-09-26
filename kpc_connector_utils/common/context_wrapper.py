@@ -1,7 +1,6 @@
 from kpc_connector_utils.common.singleton import singleton
 
 import json
-import base64
 import logging
 
 
@@ -18,9 +17,20 @@ class ContextWrapper:
 
     def set_context(self, context):
         self._context = context
+        return self
 
     def is_context_set(self):
         return self._context is not None
+
+    def get_custom_context_value(self, key):
+        if not self.is_context_set():
+            return None
+
+        custom = self._context.client_context.custom
+        if not custom:
+            return None
+
+        return custom.get(key)
 
     def create_custom_client_context(self):
         custom_client_ct = self._get_custom_client_context()
@@ -34,7 +44,7 @@ class ContextWrapper:
         if custom and prior_ct:
             self._logger.info('prior_request_context: {}'.format(json.dumps(prior_ct)))
 
-        return encode_req(custom_client_ct)
+        return custom_client_ct
 
     def _get_custom_client_context(self):
         custom_client_ct = {'custom': {}}
@@ -74,10 +84,6 @@ class ContextWrapper:
             return None
 
         return custom_ct.get('request_context')
-
-
-def encode_req(enc_str):
-    return base64.b64encode(json.dumps(enc_str).encode()).decode('utf-8')
 
 
 def register_context(context):
