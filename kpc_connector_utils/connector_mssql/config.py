@@ -1,5 +1,5 @@
 from kpc_connector_utils.pusher_s3.config import BasePutS3Config
-from kpc_connector_utils.common.base64 import encode
+from kpc_connector_utils.common.base64 import base64_encode as encode
 
 import json
 
