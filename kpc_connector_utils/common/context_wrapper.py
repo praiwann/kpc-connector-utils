@@ -26,7 +26,7 @@ class ContextWrapper:
         if not self.is_context_set():
             return None
 
-        custom = self._context.client_context.custom
+        custom = self._context.client_context.custom if self._context.client_context else None
         if not custom:
             return None
 
