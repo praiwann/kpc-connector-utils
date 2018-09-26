@@ -1,9 +1,9 @@
 import base64
 
 
-def decode(value):
+def base64_decode(value):
     return base64.b64decode(value.encode()).decode()
 
 
-def encode(value):
+def base64_encode(value):
     return base64.b64encode(value.encode()).decode()
