@@ -5,7 +5,7 @@ import os
 
 
 class BaseConfig:
-    def __init__(self, env_name):
+    def __init__(self, env_name=''):
         func_name = os.getenv('{}'.format(env_name))
         if not func_name:
             raise ValueError('No env defined in system env for env_name: {}'.format(env_name))
@@ -13,21 +13,13 @@ class BaseConfig:
         self._func_name = func_name
         self._event_type = EventType.Event
 
-    @property
-    def event_type(self):
-        return self._event_type
-
-    @event_type.setter
-    def event_type(self, value):
+    def set_event_type(self, value):
         self._event_type = value
+        return self
 
-    @property
-    def func_name(self):
-        return self._func_name
-
-    @func_name.setter
-    def func_name(self, value):
+    def set_func_name(self, value):
         self._func_name = value
+        return self
 
     def build(self):
         return Pusher(self)
